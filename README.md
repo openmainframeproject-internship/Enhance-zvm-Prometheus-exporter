@@ -14,7 +14,7 @@ a better understanding of the problems you encountered during the developmemnt o
 
 ## Project Team
 - Chen ji - IBM - Mentor
-- Kai Wong - *University* - Mentee
+- Kai Wong - Beijing Institute of Technology, Zhuhai Campus - Mentee
 
 ## Deliverables:
 - [ ] Project Plan
