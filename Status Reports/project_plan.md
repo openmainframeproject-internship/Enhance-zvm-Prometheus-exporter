@@ -16,8 +16,8 @@
 
 | Week | Tasks                                                                      | Goals                                                                                               |
 |------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-|   1  | Get to know the team and setup up development environment                  | Familiarize myself with community and developement environment                                      |
-|   2  | Read the document of python-zvm-sdk and communicate with mentor            | Understand how the RESTAPI and zvmconnector works app-generator                                     |
+|   1  | Get to know the team and set up development environment                  | Familiarize myself with community and developement environment                                      |
+|   2  | Read the document of python-zvm-sdk and communicate with mentor            | Understand how the RESTAPI and zvmconnector works                                   |
 |   3  | Get familiar with the Prometheus client library and try other exporters    | Be able to use common functions of the library                                                      |
 |   4  | Design the exporter and its metrics                                        | Write a list of metrics the exporter supports                                                       |
 |   5  | Prepare the testing: a mock server                                         | The mock server acts like a python-zvm-sdk server and can be requested via standard feilong RESTAPI |
