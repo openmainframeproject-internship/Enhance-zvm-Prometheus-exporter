@@ -2,6 +2,7 @@ import json
 from prometheus_client import start_http_server
 from prometheus_client.core import REGISTRY
 import logging
+import time
 
 from collector import ZVMCollector
 
@@ -19,6 +20,6 @@ def start_exporter(prometheus_port: int=8009, ip_addr: str=None, port: int=None,
                             verify=verify, token_path=token_path))     # TODO
         start_http_server(prometheus_port)
         while True:
-            sleep(1)      
+            time.sleep(1)      
     except AttributeError as e:
         logging.error("Exporter Error:", e)
