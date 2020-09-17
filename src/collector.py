@@ -1,37 +1,48 @@
 import json
 from zvmconnector.connector import ZVMConnector
 from prometheus_client.core import GaugeMetricFamily
+import time
 
 # collect the infomation from sdk server
 class ZVMCollector(ZVMConnector):
     def __init__(self, ip_addr: str=None, port: int=None, timeout: int=3600,
                  connection_type: str=None, ssl_enabled: bool=False, verify: bool=False,
-                 token_path: bool=None):
+                 token_path: str=None, cache_duration:int=90):
         super().__init__(ip_addr=ip_addr, port=port, timeout=timeout,
                         connection_type=connection_type, ssl_enabled=ssl_enabled,
                         verify=verify, token_path=token_path)
+        self.metrics_cache = []
+        self.cache_duration = cache_duration
+        self.cache_since = time.time()
 
     def collect(self):
+        # If the cache expires, we will update it
+        if (time.time()-self.cache_since) < self.cache_duration and len(self.metrics_cache) != 0:
+            return self.metrics_cache
+
+        # Refresh the cache
+        self.metrics_cache.clear()  # Clear out-of-date cache
+        # Query metrics
+        # Version
         version_metrics = self.collect_api_version()
-        for i in version_metrics.values():
-            yield i
+        self.metrics_cache.extend(version_metrics.values())
 
         # Since host_metric also includes the disk info
         # host_disk_metrics = self.collect_host_disk_info()
-        # for i in host_disk_metrics.values():
-        #     yield i
 
+        # Host
         host_metrics = self.collect_host_info()
-        for i in host_metrics.values():
-            yield i
+        self.metrics_cache.extend(host_metrics.values())
 
+        # Guest
         guests_list = self.query_guests_list()
         for userid in guests_list:
             guest_info = self.collect_guest_info(userid)
-            for i in guest_info.values():
-                yield i
+            self.metrics_cache.extend(guest_info.values())
+        
+        self.cache_since = time.time()
+        return self.metrics_cache
             
-
     # Version
     def collect_api_version(self) -> dict:
         """
@@ -51,7 +62,6 @@ class ZVMCollector(ZVMConnector):
         metric['zvm_sdk_version'] = GaugeMetricFamily('zvm_sdk_version', '', labels=list(data.keys()))
         metric['zvm_sdk_version'].add_metric(list(data.values()), int(1))
         return metric
-
 
     # Host
     def collect_host_info(self) -> dict:
@@ -154,7 +164,6 @@ class ZVMCollector(ZVMConnector):
     # def collect_guest_definition_info(self) -> dict:
     #     pass
 
-
     def collect_guests_stats(self, userids) -> dict:
         """
         GET /guests/stats
@@ -194,7 +203,6 @@ class ZVMCollector(ZVMConnector):
         for i in metric.keys():
             metric[i].add_metric([self.host, userid], data[i])
         return metric
-
 
     # VSwitch TODO
     def query_vswitch_list(self) -> list:
