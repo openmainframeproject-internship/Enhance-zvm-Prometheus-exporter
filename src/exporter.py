@@ -6,14 +6,13 @@ import time
 
 from collector import ZVMCollector
 
-fake_token_path = 'tests/faketoken.txt'
 mock_server_port = 8909
 
 
 # Export them to Prometheus
 def start_exporter(prometheus_port: int=8009, ip_addr: str=None, port: int=None, timeout: int=3600,
                  connection_type: str=None, ssl_enabled: bool=False, verify: bool=False,
-                 token_path: str='tests/faketoken.txt'):
+                 token_path: str=None):
     try:
         REGISTRY.register(ZVMCollector(ip_addr=ip_addr, port=port, timeout=timeout, 
                             connection_type=connection_type, ssl_enabled=ssl_enabled, 
