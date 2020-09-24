@@ -5,7 +5,8 @@ setup(
     version = '0.0.1',
     author = 'Kai',
     author_email = 'kaiakx@yandex.com',
-    description = 'Prometheus Exporter for z/VM Metrics, based on Feilong(zVMCloudConnector)',
+    description = 'Prometheus Exporter for z/VM Metrics, based on Feilong',
+    long_description = 'Prometheus Exporter for z/VM Metrics, based on Feilong(zVMCloudConnector)',
     url = 'https://github.com/openmainframeproject-internship/Enhance-zvm-Prometheus-exporter/',
     classifiers = [
         'Development Status :: 3 - Alpha',
