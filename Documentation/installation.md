@@ -5,3 +5,5 @@ The zvm exporter uses these libraries:
 * Flask
 
 # PIP
+`pip install --extra-index-url https://test.pypi.org/simple/ zvm-feilong-exporter` 
+(**NOTICE** TestPyPI is unstable)
