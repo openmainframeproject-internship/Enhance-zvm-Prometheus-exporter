@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'zvm_feilong_exporter',
-    version = '0.0.1',
+    version = '0.0.2',
     author = 'Kai',
     author_email = 'kaiakx@yandex.com',
     description = 'Prometheus Exporter for z/VM Metrics, based on Feilong',
@@ -23,8 +23,8 @@ setup(
             ]
         },
         install_requires = [
-            'zVMCloudConnector',
-            'prometheus_client',
+            'zVMCloudConnector >= 1.4.1',
+            'prometheus_client >= 0.8.0',
             'flask',
         ],
 )

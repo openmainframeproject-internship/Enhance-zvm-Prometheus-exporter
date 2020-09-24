@@ -31,6 +31,12 @@ def main():
         help="The path of token file.",
         required=True)
     argparser.add_argument(
+        "--connection_type", 
+        help="The connection can be 'socket' or 'rest'.",
+        choices=['rest', 'sock'],
+        default='rest'
+    )    
+    argparser.add_argument(
         "--verify",
         help="Either a boolean, in which case it controls whether we verify the server's TLS certificate, or a string, in which case it must be a path to a CA bundle to use. Default to False.",
         action="store_true")
@@ -38,12 +44,6 @@ def main():
         "--ssl_enabled",
         help="Whether SSL enabled or not. If enabled, use HTTPS instead of HTTP. The httpd server should enable SSL to support this.",
         action="store_true"
-    )
-    argparser.add_argument(
-        "--connection_type", 
-        help="The connection can be 'socket' or 'rest'.",
-        choices=['rest', 'sock'],
-        default='rest'
     )
 
     args = argparser.parse_args()
