@@ -4,7 +4,7 @@ from prometheus_client.core import REGISTRY
 import logging
 import time
 
-from collector import ZVMCollector
+from src.collector import ZVMCollector
 
 mock_server_port = 8909
 
