@@ -4,10 +4,7 @@ from prometheus_client.core import REGISTRY
 import logging
 import time
 
-from src.collector import ZVMCollector
-
-mock_server_port = 8909
-
+from zvm_feilong_exporter.collector import ZVMCollector
 
 # Export them to Prometheus
 def start_exporter(prometheus_port: int=8009, ip_addr: str=None, port: int=None, timeout: int=3600,

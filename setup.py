@@ -13,12 +13,12 @@ setup(
         'Environment :: Console',
         'License :: OSI Approved :: Apache Software License',
     ],
-        # package_dir = {'': 'src'},
-        packages = ['src'],        
+        package_dir = {'': 'src'},
+        packages = find_packages(where='src'),
         python_requires = '>=3.5, <4',
         entry_points = {
             'console_scripts': [
-                'zvm_feilong_exporter = src.main:main'
+                'zvm_feilong_exporter = zvm_feilong_exporter.main:main'
             ]
         },
         install_requires = [

@@ -1,7 +1,7 @@
 import argparse
 import logging
 import sys
-from src.exporter import start_exporter
+from zvm_feilong_exporter.exporter import start_exporter
 
 def main():
     argparser = argparse.ArgumentParser(description="zVM Exporter for Prometheus. Metrics are exported to localhost.")
