@@ -34,7 +34,7 @@ After quering the information, the exporter will receive some requests formated 
     'output': 'out' // The return data from API request.
 }
 ```
-The new z/vm exporter would parse them, and collect the metrics.
+The new z/vm exporter would parse them, and collect the metrics from `output`.
 
 5. Exporting
 With the help of Prometheus [client_python](https://github.com/prometheus/client_python), it's not difficult to do this. All metrics will be saved in a folder, and sent to Prometheus server.

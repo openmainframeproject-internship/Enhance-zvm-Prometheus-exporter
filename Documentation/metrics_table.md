@@ -14,10 +14,10 @@
 - [x] vcpus_used: `zvm_host_vcpus_used{host="OPNSTK2"} 6.0`
 
 ## Guest
-- [x] max_mem_kb: `zvm_guest_mem_kb{guest="v1",host="OPNSTK2"} 0.0`
+- [x] mem_kb: `zvm_guest_mem_kb{guest="v1",host="OPNSTK2"} 0.0`
+- [x] max_mem_kb: `zvm_guest_max_mem_kb{guest="v2",host="OPNSTK2"} 1.0`
 - [x] num_cpu: `zvm_guest_num_cpu{guest="v2",host="OPNSTK2"} 1.0`
 - [x] cpu_time_us:`zvm_guest_cpu_time_us{guest="v2",host="OPNSTK2"} 0.0`
-- [ ] power_state: 
-- [x] mem_kb: `zvm_guest_max_mem_kb{guest="v2",host="OPNSTK2"} 1.0`
+- [ ] power_state: `zvm_guest_power_state{guest="v2",host="OPNSTK2"} 1`
 
 ## Switch
