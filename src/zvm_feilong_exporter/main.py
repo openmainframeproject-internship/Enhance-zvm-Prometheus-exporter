@@ -35,7 +35,7 @@ def main():
         help="The connection can be 'socket' or 'rest'.",
         choices=['rest', 'sock'],
         default='rest'
-    )    
+    )
     argparser.add_argument(
         "--verify",
         help="Either a boolean, in which case it controls whether we verify the server's TLS certificate, or a string, in which case it must be a path to a CA bundle to use. Default to False.",
@@ -44,6 +44,12 @@ def main():
         "--ssl_enabled",
         help="Whether SSL enabled or not. If enabled, use HTTPS instead of HTTP. The httpd server should enable SSL to support this.",
         action="store_true"
+    )
+    argparser.add_argument(
+        "--cache",
+        help="Enable cache for metrics, it will be refreshed after a specified number of seconds.",
+        type=int,
+        default=0
     )
 
     args = argparser.parse_args()
@@ -54,13 +60,7 @@ def main():
 
     start_exporter(prometheus_port=args.port, ip_addr=ip, 
                     port=int(port), timeout=args.timeout, token_path=args.token,
-                    verify=args.verify, ssl_enabled=args.ssl_enabled)
-
-
-# def load_servers(filename:str) -> dict:
-#     config = configparser.ConfigParser()
-#     config.read(filename, encoding='utf-8')
-#     servers = config.sections()
+                    verify=args.verify, ssl_enabled=args.ssl_enabled, cache_duration=args.cache)
 
 
 if __name__ == "__main__":

@@ -116,7 +116,7 @@ class ZVMCollector(ZVMConnector):
         # metric['other_info'].add_metric(labels_value, 1)
         return metric
 
-
+    # Host's disk
     def collect_host_disk_info(self) -> dict:
         """
         GET /host/diskpool
@@ -137,7 +137,7 @@ class ZVMCollector(ZVMConnector):
         return metric
 
 
-    # Image
+    # Images list
     def collect_image_list(self) -> dict:
         """
         GET /images
@@ -152,7 +152,7 @@ class ZVMCollector(ZVMConnector):
         res = self.send_request('image_query')
         return res['output']
 
-    # Guest
+    # Guests list
     def query_guests_list(self) -> list:
         """
         GET /guests
@@ -164,6 +164,7 @@ class ZVMCollector(ZVMConnector):
     # def collect_guest_definition_info(self) -> dict:
     #     pass
 
+    # Guests' status
     def collect_guests_stats(self, userids) -> dict:
         """
         GET /guests/stats
@@ -179,7 +180,7 @@ class ZVMCollector(ZVMConnector):
         """
         res = self.send_request('guest_inspect_vnics', userids)
 
-
+    # A guest's info
     def collect_guest_info(self, userid: str) -> dict:
         """
         GET /guests/{userid}/info
@@ -196,12 +197,14 @@ class ZVMCollector(ZVMConnector):
         metric['max_mem_kb'] = GaugeMetricFamily('zvm_guest_max_mem_kb', 'The maximum memory in KBytes can be allocated for this guest.', labels=['host', 'guest'])
         metric['num_cpu'] = GaugeMetricFamily('zvm_guest_num_cpu', 'The count of virtual CPUs for the guest.', labels=['host', 'guest'])
         metric['cpu_time_us'] = GaugeMetricFamily('zvm_guest_cpu_time_us', 'The CPU time used in microseconds.', labels=['host', 'guest'])
-        #FIXME metric['power_state'] = GaugeMetricFamily('zvm_guest_power_state', 'Power status of guest, can be either on or off.', labels=['host', 'guest'])
-        metric['mem_kb'] = GaugeMetricFamily('zvm_guest_mem_kb', 'Meemory size used by the guest, in KBytes.', labels=['host', 'guest'])
+        metric['mem_kb'] = GaugeMetricFamily('zvm_guest_mem_kb', 'Memory size used by the guest, in KBytes.', labels=['host', 'guest'])
 
         data = res['output']
         for i in metric.keys():
             metric[i].add_metric([self.host, userid], data[i])
+        
+        metric['power_state'] = GaugeMetricFamily('zvm_guest_power_state', 'Power status of guest, can be either on or off.', labels=['host', 'guest', data['power_state']])    
+        
         return metric
 
     # VSwitch TODO
